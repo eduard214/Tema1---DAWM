@@ -11,4 +11,11 @@
       <ProjectReference Include="..\API\API.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Dtos\" />
+      <Folder Include="Logic\" />
+      <Folder Include="Mapping\" />
+      <Folder Include="Services\" />
+    </ItemGroup>
+
 </Project>
