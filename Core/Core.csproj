@@ -6,16 +6,16 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\API\API.csproj" />
-    </ItemGroup>
-
+    
     <ItemGroup>
       <Folder Include="Dtos\" />
       <Folder Include="Logic\" />
       <Folder Include="Mapping\" />
       <Folder Include="Services\" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\Database\Database.csproj" />
     </ItemGroup>
 
 </Project>
