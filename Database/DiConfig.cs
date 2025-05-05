@@ -1,4 +1,5 @@
 ﻿using Database.Context;
+using Database.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +11,10 @@ public static class DiConfig
     {
         services.AddDbContext<DatabaseContext>();
         services.AddScoped<DbContext, DatabaseContext>();
-        
+
+        services.AddScoped<OrderRepository>();
+        services.AddScoped<CustomerRepository>();
+
         return services;
     }
 }

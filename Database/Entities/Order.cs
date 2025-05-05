@@ -7,5 +7,5 @@ public class Order : BaseEntity
 
     public int CustomerId { get; set; }
 
-    public virtual Customer Customer { get; set; }
+    public virtual required Customer Customer { get; set; }
 }

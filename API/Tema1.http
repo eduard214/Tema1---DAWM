@@ -1,6 +1,214 @@
 @Tema1_HostAddress = http://localhost:5074
+@orderId = 1
+@customerId = 1
+@customerEmail = test@example.com
 
-GET {{Tema1_HostAddress}}/weatherforecast/
+### ORDERS ###
+
+# GET All Orders
+GET {{Tema1_HostAddress}}/api/orders
+Accept: application/json
+
+###
+
+# GET All Orders (including deleted)
+GET {{Tema1_HostAddress}}/api/orders?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Order by ID
+GET {{Tema1_HostAddress}}/api/orders/{{orderId}}
+Accept: application/json
+
+###
+
+# GET Order by ID (including deleted)
+GET {{Tema1_HostAddress}}/api/orders/{{orderId}}?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Orders by Customer ID
+GET {{Tema1_HostAddress}}/api/orders/customer/{{customerId}}
+Accept: application/json
+
+###
+
+# GET Orders by Customer ID (including deleted)
+GET {{Tema1_HostAddress}}/api/orders/customer/{{customerId}}?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Orders by Date Range
+GET {{Tema1_HostAddress}}/api/orders/date-range?startDate=2024-01-01&endDate=2024-12-31
+Accept: application/json
+
+###
+
+# GET Orders by Date Range (including deleted)
+GET {{Tema1_HostAddress}}/api/orders/date-range?startDate=2024-01-01&endDate=2024-12-31&includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Orders with Customer Info
+GET {{Tema1_HostAddress}}/api/orders/with-customer
+Accept: application/json
+
+###
+
+# GET Orders with Customer Info (including deleted)
+GET {{Tema1_HostAddress}}/api/orders/with-customer?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Order with Customer Info by Order ID
+GET {{Tema1_HostAddress}}/api/orders/{{orderId}}/with-customer
+Accept: application/json
+
+###
+
+# GET Order with Customer Info by Order ID (including deleted)
+GET {{Tema1_HostAddress}}/api/orders/{{orderId}}/with-customer?includeDeleted=true
+Accept: application/json
+
+###
+
+# POST Create Order
+POST {{Tema1_HostAddress}}/api/orders
+Content-Type: application/json
+Accept: application/json
+
+{
+  "customerId": 1,
+  "orderDate": "2024-07-26T10:30:00Z",
+  "totalAmount": 199.99
+}
+
+###
+
+# PUT Update Order
+PUT {{Tema1_HostAddress}}/api/orders/{{orderId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": {{orderId}},
+  "customerId": 2,
+  "orderDate": "2024-07-27T11:00:00Z",
+  "totalAmount": 249.50
+}
+
+###
+
+# DELETE Order (Soft Delete)
+DELETE {{Tema1_HostAddress}}/api/orders/{{orderId}}
+Accept: application/json
+
+### CUSTOMERS ###
+
+# GET All Customers
+GET {{Tema1_HostAddress}}/api/customers
+Accept: application/json
+
+###
+
+# GET All Customers (including deleted)
+GET {{Tema1_HostAddress}}/api/customers?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Customer by ID
+GET {{Tema1_HostAddress}}/api/customers/{{customerId}}
+Accept: application/json
+
+###
+
+# GET Customer by ID (including deleted)
+GET {{Tema1_HostAddress}}/api/customers/{{customerId}}?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Customers with Orders
+GET {{Tema1_HostAddress}}/api/customers/with-orders
+Accept: application/json
+
+###
+
+# GET Customers with Orders (including deleted)
+GET {{Tema1_HostAddress}}/api/customers/with-orders?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Customer with Orders by Customer ID
+GET {{Tema1_HostAddress}}/api/customers/{{customerId}}/with-orders
+Accept: application/json
+
+###
+
+# GET Customer with Orders by Customer ID (including deleted)
+GET {{Tema1_HostAddress}}/api/customers/{{customerId}}/with-orders?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Customer by Email
+GET {{Tema1_HostAddress}}/api/customers/by-email/{{customerEmail}}
+Accept: application/json
+
+###
+
+# GET Customer by Email (including deleted)
+GET {{Tema1_HostAddress}}/api/customers/by-email/{{customerEmail}}?includeDeleted=true
+Accept: application/json
+
+###
+
+# GET Customer by Email with Orders
+GET {{Tema1_HostAddress}}/api/customers/by-email/{{customerEmail}}/with-orders
+Accept: application/json
+
+###
+
+# GET Customer by Email with Orders (including deleted)
+GET {{Tema1_HostAddress}}/api/customers/by-email/{{customerEmail}}/with-orders?includeDeleted=true
+Accept: application/json
+
+###
+
+# POST Create Customer
+POST {{Tema1_HostAddress}}/api/customers
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "New Customer",
+  "email": "new.customer@example.com"
+}
+
+###
+
+# PUT Update Customer
+PUT {{Tema1_HostAddress}}/api/customers/{{customerId}}
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": {{customerId}},
+  "name": "Updated Customer Name",
+  "email": "updated.customer@example.com"
+}
+
+###
+
+# DELETE Customer (Soft Delete)
+DELETE {{Tema1_HostAddress}}/api/customers/{{customerId}}
 Accept: application/json
 
 ###

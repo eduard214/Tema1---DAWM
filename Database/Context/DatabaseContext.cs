@@ -1,22 +1,34 @@
-﻿using Infrastructure.Config;
+﻿// Database/Context/DatabaseContext.cs
+
+using Database.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Database.Context;
 
 public class DatabaseContext : DbContext
 {
-    public DatabaseContext()
+    public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
     {
-        
+    }
+
+    public DbSet<Customer> Customers { get; set; }
+    public DbSet<Order> Orders { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Customer>()
+            .HasMany(c => c.Orders)
+            .WithOne(o => o.Customer)
+            .HasForeignKey(o => o.CustomerId);
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(AppConfig.ConnectionStrings?.DefaultConnection).LogTo(Console.WriteLine);
-        
-        if (AppConfig.ConsoleLogQueries)
+        if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.LogTo(Console.WriteLine);
+            // Remove connection string configuration from here
         }
     }
 }
