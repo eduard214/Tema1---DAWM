@@ -106,4 +106,17 @@ public class CustomersController : ControllerBase
 
         return NoContent();
     }
+
+    [HttpPost("get-filtered-customers")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [Consumes("application/json")]
+    [Produces("application/json")]
+    public async Task<IActionResult> GetFilteredCustomers([FromBody] GetFilteredCustomersRequest payload)
+    {
+        if (payload == null) return BadRequest("Filter criteria is required.");
+
+        var result = await _customerService.GetFilteredCustomersAsync(payload);
+        return Ok(result);
+    }
 }
