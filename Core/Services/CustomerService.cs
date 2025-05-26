@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Core.Dtos.Requests.Customers;
+using Core.Dtos.Responses.Common;
 using Core.Dtos.Responses.Customers;
+using Database.Dtos;
 using Database.Entities;
 using Database.Repositories;
 
@@ -77,5 +79,39 @@ public class CustomerService
         _customerRepository.SoftDelete(customer);
         await _customerRepository.SaveChangesAsync();
         return true;
+    }
+
+    public async Task<PagedResponse<CustomerResponse>> GetFilteredCustomersAsync(GetFilteredCustomersRequest request)
+    {
+        if (request == null || request.Filters == null || request.SortingOption == null)
+            return new PagedResponse<CustomerResponse>
+            {
+                Items = new List<CustomerResponse>(),
+                TotalCount = 0,
+                PageNumber = 1,
+                PageSize = 10,
+                TotalPages = 0
+            };
+
+        request.Pagination ??= new PaginationDto();
+
+        var (customers, totalCount) = await _customerRepository.GetFilteredCustomersAsync(
+            request.Filters,
+            request.SortingOption,
+            request.Pagination.PageNumber,
+            request.Pagination.PageSize);
+
+        var customerResponses = _mapper.Map<IEnumerable<CustomerResponse>>(customers);
+
+        var totalPages = (int)Math.Ceiling(totalCount / (double)request.Pagination.PageSize);
+
+        return new PagedResponse<CustomerResponse>
+        {
+            Items = customerResponses,
+            TotalCount = totalCount,
+            PageNumber = request.Pagination.PageNumber,
+            PageSize = request.Pagination.PageSize,
+            TotalPages = totalPages
+        };
     }
 }
