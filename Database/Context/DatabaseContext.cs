@@ -23,7 +23,7 @@ public class DatabaseContext : DbContext
 
         modelBuilder.Entity<Order>()
             .Property(o => o.OrderDate)
-            .HasColumnType("timestamp");
+            .HasColumnType("timestamptz");
 
         modelBuilder.Entity<Customer>()
             .Property(c => c.Name)
@@ -43,15 +43,15 @@ public class DatabaseContext : DbContext
             {
                 modelBuilder.Entity(entityType.ClrType)
                     .Property("CreatedAt")
-                    .HasColumnType("timestamp");
+                    .HasColumnType("timestamptz");
 
                 modelBuilder.Entity(entityType.ClrType)
                     .Property("ModifiedAt")
-                    .HasColumnType("timestamp");
+                    .HasColumnType("timestamptz");
 
                 modelBuilder.Entity(entityType.ClrType)
                     .Property("DeletedAt")
-                    .HasColumnType("timestamp");
+                    .HasColumnType("timestamptz");
             }
     }
 
@@ -68,3 +68,4 @@ public class DatabaseContext : DbContext
             );
     }
 }
+

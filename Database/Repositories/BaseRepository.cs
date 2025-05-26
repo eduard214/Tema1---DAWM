@@ -40,9 +40,21 @@ public class BaseRepository<T>(DatabaseContext databaseContext) where T : BaseEn
         Update(records);
     }
 
-    public Task SaveChangesAsync()
+    public async Task SaveChangesAsync()
     {
-        return databaseContext.SaveChangesAsync();
+        try
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            var innerException = ex.InnerException;
+            var errorMessage = $"Error saving changes: {ex.Message}";
+
+            if (innerException != null) errorMessage += $"\nInner exception: {innerException.Message}";
+
+            throw new InvalidOperationException(errorMessage, ex);
+        }
     }
 
     protected IQueryable<T> GetRecords(bool includeDeletedEntities = false)
